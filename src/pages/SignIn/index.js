@@ -1,10 +1,10 @@
 import React from 'react';
-import { View, Text } from 'react-native';
+import * as S from './styles';
 
 export default function SignIn() {
   return (
-    <View>
-      <Text>Tela de login</Text>
-    </View>
+    <S.Container>
+      <S.Text>Tela de login</S.Text>
+    </S.Container>
   );
 }
