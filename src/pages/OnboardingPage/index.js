@@ -22,6 +22,7 @@ export default function OnboardingScreen() {
         onDone={handleDone}
         onSkip={handleDone}
         bottomBarHighlight={false}
+        containerStyles={{ paddingHorizontal: 15 }}
         pages={[
           {
             backgroundColor: '#081c15',
