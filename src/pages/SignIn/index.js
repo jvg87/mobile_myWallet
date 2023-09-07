@@ -1,10 +1,13 @@
 import React, { useState } from 'react';
 import Icon from 'react-native-vector-icons/Feather';
+import { useNavigation } from '@react-navigation/native';
 import * as S from './styles';
 
 import Logo from '../../assets/Logo.png';
 
 export default function SignIn() {
+  const navigate = useNavigation();
+
   const [showPassword, setShowPassword] = useState(false);
 
   return (
@@ -48,7 +51,7 @@ export default function SignIn() {
           <S.BtnLogin>
             <S.BtnTextLogin>Acessar</S.BtnTextLogin>
           </S.BtnLogin>
-          <S.BtnRegister>
+          <S.BtnRegister onPress={() => navigate.navigate('SignUp')}>
             <S.BtnText>
               Não possui uma conta? <S.BtnTextRegister>Cadastre-se!</S.BtnTextRegister>{' '}
             </S.BtnText>

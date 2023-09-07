@@ -16,7 +16,7 @@ export const Header = styled(Animatable.View)`
 export const Logo = styled.Image``;
 
 export const ContainerForm = styled(Animatable.View)`
-  flex: 2;
+  flex: 4;
   background-color: #fcfcfc;
   width: 100%;
   justify-content: space-around;
@@ -34,7 +34,7 @@ export const Title = styled.Text`
   color: #2d6a4f;
   font-size: 28px;
   font-weight: bold;
-  margin-bottom: 12px;
+  margin-bottom: 8px;
 `;
 
 export const Message = styled.Text`
