@@ -3,8 +3,6 @@ import * as Animatable from 'react-native-animatable';
 
 export const Container = styled.KeyboardAvoidingView`
   flex: 1;
-  /* align-items: center;
-  justify-content: center; */
   background-color: #081c15;
 `;
 
@@ -28,7 +26,7 @@ export const ContainerForm = styled(Animatable.View)`
   border-top-left-radius: 20px;
 `;
 
-export const MessageContainer = styled.View`
+export const MessageContainer = styled(Animatable.View)`
   align-items: center;
 `;
 
@@ -44,24 +42,45 @@ export const Message = styled.Text`
   color: #1b4332;
 `;
 
-export const AreaInput = styled.View`
+export const InputContainer = styled.View`
   width: 100%;
+  gap: 20px;
 `;
 
 export const Label = styled.Text`
-  color: #081c15;
-  font-size: 20px;
-  margin: 10px 0;
+  font-size: 18px;
+  margin-bottom: -14px;
+  color: #2d6a4f;
+  font-weight: bold;
 `;
 
-export const Input = styled.TextInput`
+export const AreaInput = styled.View`
+  position: relative;
+  width: 100%;
+`;
+
+export const LabelIcon = styled.Text`
+  position: absolute;
+  top: 12px;
+  left: 20px;
+  z-index: 1;
+`;
+
+export const LabelEye = styled.TouchableOpacity`
+  position: absolute;
+  top: 12px;
+  right: 20px;
+  z-index: 1;
+`;
+
+export const Input = styled.TextInput.attrs({
+  placeholderTextColor: '#40916C',
+})`
   background-color: #d8f3dc;
   height: 45px;
   font-size: 16px;
-  padding: 14px;
+  padding: 14px 50px;
   border-radius: 10px;
-  color: #121212;
-  margin-bottom: 18px;
 `;
 
 export const ContainerBtn = styled.View`
