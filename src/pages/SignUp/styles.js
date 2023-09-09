@@ -1,5 +1,5 @@
-import styled from 'styled-components/native';
 import * as Animatable from 'react-native-animatable';
+import styled from 'styled-components/native';
 
 export const Container = styled.KeyboardAvoidingView`
   flex: 1;
@@ -114,4 +114,10 @@ export const BtnTextRegister = styled.Text`
 `;
 export const BtnText = styled.Text`
   color: #9a9a9a;
+`;
+
+export const ErrorLabel = styled.Text`
+  font-size: 18px;
+  margin-bottom: -14px;
+  color: #ff375b;
 `;
