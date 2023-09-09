@@ -33,6 +33,10 @@ export default function SignIn() {
     resolver: yupResolver(schema),
   });
 
+  const handleSignUp = (data) => {
+    console.log(data);
+  };
+
   return (
     <S.Container>
       <S.Header animation="fadeInDown" delay={400}>
@@ -147,7 +151,7 @@ export default function SignIn() {
           </S.AreaInput>
         </S.InputContainer>
         <S.ContainerBtn>
-          <S.BtnLogin onPress={handleSubmit(() => console.log('teste2'))}>
+          <S.BtnLogin onPress={handleSubmit(handleSignUp)}>
             <S.BtnTextLogin>Registrar</S.BtnTextLogin>
           </S.BtnLogin>
           <S.BtnRegister onPress={() => navigate.goBack()}>
