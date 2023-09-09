@@ -2,6 +2,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { useNavigation } from '@react-navigation/native';
 import React, { useContext, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
+import { ActivityIndicator, Platform } from 'react-native';
 import Icon from 'react-native-vector-icons/Feather';
 import * as yup from 'yup';
 import * as S from './styles';
@@ -10,7 +11,7 @@ import Logo from '../../assets/Logo.png';
 import { AuthContext } from '../../contexts/auth';
 
 export default function SignIn() {
-  const { signUp } = useContext(AuthContext);
+  const { signUp, loadingAuth, errorMessage } = useContext(AuthContext);
   const navigate = useNavigation();
 
   const [showPassword, setShowPassword] = useState(false);
@@ -40,7 +41,7 @@ export default function SignIn() {
   };
 
   return (
-    <S.Container>
+    <S.Container behavior={Platform.OS === 'ios' ? 'padding' : ''}>
       <S.Header animation="fadeInDown" delay={400}>
         <S.Logo source={Logo} />
       </S.Header>
@@ -50,6 +51,7 @@ export default function SignIn() {
           <S.Message>Crie sua nova conta</S.Message>
         </S.MessageContainer>
         <S.InputContainer>
+          {errorMessage && <S.ErrorTitle>{errorMessage}</S.ErrorTitle>}
           {errors.name ? (
             <S.ErrorLabel>{errors.name?.message}</S.ErrorLabel>
           ) : (
@@ -92,7 +94,10 @@ export default function SignIn() {
                   onChangeText={onChange}
                   onBlur={onBlur}
                   value={value}
-                  style={{ borderColor: errors.email && '#ff375b', borderWidth: errors.email && 1 }}
+                  style={{
+                    borderColor: (errors.email || errorMessage) && '#ff375b',
+                    borderWidth: (errors.email || errorMessage) && 1,
+                  }}
                 />
               )}
             />
@@ -154,7 +159,11 @@ export default function SignIn() {
         </S.InputContainer>
         <S.ContainerBtn>
           <S.BtnLogin onPress={handleSubmit(handleSignUp)}>
-            <S.BtnTextLogin>Registrar</S.BtnTextLogin>
+            {loadingAuth ? (
+              <ActivityIndicator size={20} color="#d8f3dc" />
+            ) : (
+              <S.BtnTextLogin>Registrar</S.BtnTextLogin>
+            )}
           </S.BtnLogin>
           <S.BtnRegister onPress={() => navigate.goBack()}>
             <S.BtnText>

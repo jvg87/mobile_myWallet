@@ -33,7 +33,7 @@ export default function SignIn() {
   };
 
   return (
-    <S.Container>
+    <S.Container behavior="padding">
       <S.Header animation="fadeInDown" delay={400}>
         <S.Logo source={Logo} />
       </S.Header>

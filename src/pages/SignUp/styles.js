@@ -121,3 +121,9 @@ export const ErrorLabel = styled.Text`
   margin-bottom: -14px;
   color: #ff375b;
 `;
+
+export const ErrorTitle = styled.Text`
+  font-size: 20px;
+  color: #ff375b;
+  text-align: center;
+`;
