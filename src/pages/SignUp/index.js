@@ -1,14 +1,16 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useNavigation } from '@react-navigation/native';
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import Icon from 'react-native-vector-icons/Feather';
 import * as yup from 'yup';
 import * as S from './styles';
 
 import Logo from '../../assets/Logo.png';
+import { AuthContext } from '../../contexts/auth';
 
 export default function SignIn() {
+  const { signUp } = useContext(AuthContext);
   const navigate = useNavigation();
 
   const [showPassword, setShowPassword] = useState(false);
@@ -34,7 +36,7 @@ export default function SignIn() {
   });
 
   const handleSignUp = (data) => {
-    console.log(data);
+    signUp(data);
   };
 
   return (
