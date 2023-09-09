@@ -11,7 +11,7 @@ import Logo from '../../assets/Logo.png';
 import { AuthContext } from '../../contexts/auth';
 
 export default function SignIn() {
-  const { signUp, loadingAuth, errorMessage } = useContext(AuthContext);
+  const { signUp, loadingAuth, errorMessage, setErrorMessage } = useContext(AuthContext);
   const navigate = useNavigation();
 
   const [showPassword, setShowPassword] = useState(false);
@@ -40,18 +40,27 @@ export default function SignIn() {
     signUp(data);
   };
 
+  const navigationLogin = () => {
+    navigate.goBack();
+    setErrorMessage(null);
+  };
+
   return (
     <S.Container behavior={Platform.OS === 'ios' ? 'padding' : ''}>
       <S.Header animation="fadeInDown" delay={400}>
         <S.Logo source={Logo} />
       </S.Header>
       <S.ContainerForm animation="fadeInUp" delay={200}>
-        <S.MessageContainer animation="fadeInLeft" delay={800}>
-          <S.Title>Registre-se agora</S.Title>
-          <S.Message>Crie sua nova conta</S.Message>
-        </S.MessageContainer>
+        {errorMessage ? (
+          <S.ErrorTitle>{errorMessage}</S.ErrorTitle>
+        ) : (
+          <S.MessageContainer animation="fadeInLeft" delay={800}>
+            <S.Title>Registre-se agora</S.Title>
+            <S.Message>Crie sua nova conta</S.Message>
+          </S.MessageContainer>
+        )}
+
         <S.InputContainer>
-          {errorMessage && <S.ErrorTitle>{errorMessage}</S.ErrorTitle>}
           {errors.name ? (
             <S.ErrorLabel>{errors.name?.message}</S.ErrorLabel>
           ) : (
@@ -165,7 +174,7 @@ export default function SignIn() {
               <S.BtnTextLogin>Registrar</S.BtnTextLogin>
             )}
           </S.BtnLogin>
-          <S.BtnRegister onPress={() => navigate.goBack()}>
+          <S.BtnRegister onPress={navigationLogin}>
             <S.BtnText>
               Já possui uma conta? <S.BtnTextRegister>Faça o Login!</S.BtnTextRegister>{' '}
             </S.BtnText>

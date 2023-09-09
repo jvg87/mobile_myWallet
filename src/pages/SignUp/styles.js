@@ -123,7 +123,7 @@ export const ErrorLabel = styled.Text`
 `;
 
 export const ErrorTitle = styled.Text`
-  font-size: 20px;
+  font-size: 28px;
   color: #ff375b;
   text-align: center;
 `;

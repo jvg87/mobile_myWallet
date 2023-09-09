@@ -7,6 +7,8 @@ export const AuthContext = createContext({});
 
 export default function AuthProvider({ children }) {
   const navigation = useNavigation();
+
+  const [user, setUser] = useState(null);
   const [loadingAuth, setLoadingAuth] = useState(false);
   const [errorMessage, setErrorMessage] = useState(null);
 
@@ -29,8 +31,39 @@ export default function AuthProvider({ children }) {
     }
   };
 
+  const signIn = async ({ email, password }) => {
+    setLoadingAuth(true);
+    try {
+      const response = await api.post('/session', {
+        email,
+        password,
+      });
+
+      const { id, name, token } = response.data;
+
+      const data = {
+        id,
+        name,
+        token,
+        email,
+      };
+
+      api.defaults.headers.Authorization = `Bearer ${token}`;
+
+      setUser({ id, name, email });
+
+      setLoadingAuth(false);
+    } catch (error) {
+      setLoadingAuth(false);
+      const { data } = error.response;
+      setErrorMessage(data.error);
+    }
+  };
+
   return (
-    <AuthContext.Provider value={{ signUp, errorMessage, setErrorMessage, loadingAuth }}>
+    <AuthContext.Provider
+      value={{ signed: !!user, signUp, signIn, errorMessage, setErrorMessage, loadingAuth }}
+    >
       {children}
     </AuthContext.Provider>
   );
