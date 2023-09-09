@@ -1,10 +1,10 @@
 import React from 'react';
 
-import { View } from 'react-native';
+import AppRoutes from './app.routes';
 import AuthRoutes from './auth.routes';
 
 export default function Routes() {
   const signed = false;
 
-  return signed ? <View /> : <AuthRoutes />;
+  return signed ? <AppRoutes /> : <AuthRoutes />;
 }
