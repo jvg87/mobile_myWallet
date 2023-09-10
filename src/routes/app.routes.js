@@ -8,7 +8,16 @@ const AppDrawer = createDrawerNavigator();
 
 export default function AppRoutes() {
   return (
-    <AppDrawer.Navigator>
+    <AppDrawer.Navigator
+      screenOptions={{
+        headerShown: false,
+        drawerStyle: {
+          backgroundColor: '#fcfcfc',
+        },
+        drawerActiveTintColor: '#d8f3dc',
+        drawerActiveBackgroundColor: '#2d6a4f',
+      }}
+    >
       <AppDrawer.Screen
         name="Home"
         component={Home}

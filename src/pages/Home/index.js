@@ -1,10 +1,12 @@
 import React from 'react';
-import { View, Text } from 'react-native';
+import Header from '../../components/Header';
+import * as S from './styles';
 
 export default function Home() {
   return (
-    <View>
-      <Text>Tela Home</Text>
-    </View>
+    <S.Background>
+      <Header title="Resumo" />
+      <S.Teste>Página Home</S.Teste>
+    </S.Background>
   );
 }
