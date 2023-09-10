@@ -1,6 +1,7 @@
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useNavigation } from '@react-navigation/native';
 import PropTypes from 'prop-types';
-import React, { createContext, useState } from 'react';
+import React, { createContext, useEffect, useState } from 'react';
 import api from '../services/api';
 
 export const AuthContext = createContext({});
@@ -10,7 +11,34 @@ export default function AuthProvider({ children }) {
 
   const [user, setUser] = useState(null);
   const [loadingAuth, setLoadingAuth] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [errorMessage, setErrorMessage] = useState(null);
+
+  useEffect(() => {
+    async function loadStorageData() {
+      const storageUser = await AsyncStorage.getItem('@myWallet');
+
+      if (storageUser) {
+        const response = await api
+          .get('/me', {
+            headers: {
+              Authorization: `Bearer ${storageUser}`,
+            },
+          })
+          .catch(() => {
+            setUser(null);
+          });
+
+        api.defaults.headers.Authorization = `Bearer ${storageUser}`;
+        setUser(response.data);
+        setLoading(false);
+      }
+
+      setLoading(false);
+    }
+
+    loadStorageData();
+  }, []);
 
   const signUp = async ({ name, email, password }) => {
     setLoadingAuth(true);
@@ -41,12 +69,14 @@ export default function AuthProvider({ children }) {
 
       const { id, name, token } = response.data;
 
-      const data = {
-        id,
-        name,
-        token,
-        email,
-      };
+      // const data = {
+      //   id,
+      //   name,
+      //   token,
+      //   email,
+      // };
+
+      await AsyncStorage.setItem('@myWallet', token);
 
       api.defaults.headers.Authorization = `Bearer ${token}`;
 
@@ -62,7 +92,15 @@ export default function AuthProvider({ children }) {
 
   return (
     <AuthContext.Provider
-      value={{ signed: !!user, signUp, signIn, errorMessage, setErrorMessage, loadingAuth }}
+      value={{
+        signed: !!user,
+        signUp,
+        signIn,
+        errorMessage,
+        setErrorMessage,
+        loadingAuth,
+        loading,
+      }}
     >
       {children}
     </AuthContext.Provider>
