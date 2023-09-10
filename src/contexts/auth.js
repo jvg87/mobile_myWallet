@@ -67,7 +67,7 @@ export default function AuthProvider({ children }) {
         password,
       });
 
-      const { id, name, token } = response.data;
+      const { id, name, token, balance } = response.data;
 
       // const data = {
       //   id,
@@ -80,7 +80,7 @@ export default function AuthProvider({ children }) {
 
       api.defaults.headers.Authorization = `Bearer ${token}`;
 
-      setUser({ id, name, email });
+      setUser({ id, name, email, balance });
 
       setLoadingAuth(false);
     } catch (error) {
@@ -90,12 +90,19 @@ export default function AuthProvider({ children }) {
     }
   };
 
+  const signOut = async () => {
+    await AsyncStorage.clear().then(() => {
+      setUser(null);
+    });
+  };
+
   return (
     <AuthContext.Provider
       value={{
         signed: !!user,
         signUp,
         signIn,
+        signOut,
         errorMessage,
         setErrorMessage,
         loadingAuth,
