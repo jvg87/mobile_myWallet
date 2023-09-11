@@ -2,7 +2,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { useNavigation } from '@react-navigation/native';
 import React, { useContext, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
-import { ActivityIndicator, Platform } from 'react-native';
+import { ActivityIndicator, Keyboard, Platform } from 'react-native';
 import Icon from 'react-native-vector-icons/Feather';
 import * as yup from 'yup';
 import * as S from './styles';
@@ -38,6 +38,7 @@ export default function SignIn() {
 
   const handleSignUp = (data) => {
     signUp(data);
+    Keyboard.dismiss();
   };
 
   const navigationLogin = () => {
