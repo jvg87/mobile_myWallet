@@ -14,6 +14,7 @@ export default function AuthProvider({ children }) {
   const [loading, setLoading] = useState(true);
   const [errorMessage, setErrorMessage] = useState(null);
   const [showValue, setShowValue] = useState(false);
+  const [showModalTransaction, setShowModalTransaction] = useState(false);
 
   useEffect(() => {
     async function loadStorageData() {
@@ -111,6 +112,8 @@ export default function AuthProvider({ children }) {
         loading,
         showValue,
         setShowValue,
+        showModalTransaction,
+        setShowModalTransaction,
       }}
     >
       {children}

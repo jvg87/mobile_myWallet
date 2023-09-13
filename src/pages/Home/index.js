@@ -1,6 +1,9 @@
 import React, { useContext } from 'react';
+import { Modal } from 'react-native';
 import Icon from 'react-native-vector-icons/Feather';
+import ButtonTransaction from '../../components/ButtonTransaction';
 import Header from '../../components/Header';
+import ModalTransaction from '../../components/ModalTransaction';
 import { AuthContext } from '../../contexts/auth';
 import * as S from './styles';
 
@@ -18,7 +21,8 @@ const greetingMessage = () => {
 };
 
 export default function Home() {
-  const { showValue, setShowValue, user } = useContext(AuthContext);
+  const { showValue, setShowValue, user, showModalTransaction, setShowModalTransaction } =
+    useContext(AuthContext);
 
   const greetingHours = greetingMessage();
 
@@ -107,6 +111,15 @@ export default function Home() {
           </S.Item>
         </S.ContainerItem>
       </S.CardTransaction>
+      <Modal
+        visible={showModalTransaction}
+        animationType="slide"
+        transparent
+        onRequestClose={() => setShowModalTransaction(false)}
+      >
+        <ModalTransaction />
+      </Modal>
+      <ButtonTransaction />
     </S.Container>
   );
 }
