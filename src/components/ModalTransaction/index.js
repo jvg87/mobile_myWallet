@@ -9,9 +9,11 @@ export default function ModalTransaction() {
 
   const handleTransactionRevenue = () => {
     setShowModalTransaction(false);
+    // TODO: CRIAR MODAL RENDA
   };
   const handleTransactionExpense = () => {
     setShowModalTransaction(false);
+    // TODO: CRIAR MODAL DESPESA
   };
 
   return (
