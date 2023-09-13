@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { Modal } from 'react-native';
 import Icon from 'react-native-vector-icons/Feather';
 import ButtonTransaction from '../../components/ButtonTransaction';
@@ -7,6 +7,7 @@ import ModalTransaction from '../../components/ModalTransaction';
 import { AuthContext } from '../../contexts/auth';
 import CardBalanceTotal from './components/CardBalanceTotal';
 import CardTransactionHome from './components/CardTransactionHome';
+import ModalUpdateBalance from './components/ModalUpdateBalance';
 import * as S from './styles';
 
 const greetingMessage = () => {
@@ -25,6 +26,8 @@ const greetingMessage = () => {
 export default function Home() {
   const { showValue, setShowValue, user, showModalTransaction, setShowModalTransaction } =
     useContext(AuthContext);
+
+  const [showModalUpdate, setShowModalUpdate] = useState(false);
 
   const greetingHours = greetingMessage();
 
@@ -45,7 +48,7 @@ export default function Home() {
         </S.BtnEye>
       </S.HeaderHome>
 
-      <CardBalanceTotal />
+      <CardBalanceTotal openModal={() => setShowModalUpdate(true)} />
 
       <CardTransactionHome />
 
@@ -56,6 +59,15 @@ export default function Home() {
         onRequestClose={() => setShowModalTransaction(false)}
       >
         <ModalTransaction />
+      </Modal>
+
+      <Modal
+        visible={showModalUpdate}
+        animationType="fade"
+        transparent
+        onRequestClose={() => setShowModalUpdate(false)}
+      >
+        <ModalUpdateBalance closeModal={() => setShowModalUpdate(false)} />
       </Modal>
 
       <ButtonTransaction />
