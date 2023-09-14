@@ -98,16 +98,6 @@ export default function AuthProvider({ children }) {
     });
   };
 
-  const updateBalance = async ({ balance }) => {
-    try {
-      await api.put('/me', {
-        balance,
-      });
-    } catch (error) {
-      console.log(error.response);
-    }
-  };
-
   return (
     <AuthContext.Provider
       value={{
@@ -116,7 +106,6 @@ export default function AuthProvider({ children }) {
         signUp,
         signIn,
         signOut,
-        updateBalance,
         errorMessage,
         setErrorMessage,
         loadingAuth,
